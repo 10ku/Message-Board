@@ -1,16 +1,16 @@
 <template>
 	<div class="Root">
-		<MyComponent/>
+		<Navigate/>
 	</div>
 </template>
 
 <script>
-import MyComponent from '@/components/MyComponent.vue'
+import Navigate from '@/components/Navigate.vue'
 
 export default {
 	name: 'Root',
 	components: {
-		MyComponent
+		Navigate
 	}
 }
 </script>

@@ -1,17 +1,17 @@
 <template>
 	<div class="Two">
 		<h1>2</h1>
-		<MyComponent/>
+		<Navigate/>
 	</div>
 </template>
 
 <script>
-import MyComponent from '@/components/MyComponent.vue'
+import Navigate from '@/components/Navigate.vue'
 
 export default {
 	name: 'Root',
 	components: {
-		MyComponent
+		Navigate
 	}
 }
 </script>
