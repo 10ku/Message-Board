@@ -10,9 +10,9 @@ const routes: Array<RouteConfig> = [
 		component: () => import('../views/Root.vue')
 	},
 	{
-		path: '/two',
-		name: 'Two',
-		component: () => import('../views/Two.vue')
+		path: '/login',
+		name: 'Login',
+		component: () => import('../views/Login.vue')
 	}
 ]
 
