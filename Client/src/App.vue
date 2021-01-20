@@ -1,12 +1,17 @@
 <template>
-	<div id="app">
-		<div id="nav">
-			<router-link to="/">Root</router-link> |
-			<router-link to="/Two">Two</router-link>
-		</div>
+	<div id="app_example">
 		<router-view/>
 	</div>
 </template>
 
 <style>
+body
+{
+	margin: 0px;
+}
+#app_example
+{
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	text-align: center;
+}
 </style>
