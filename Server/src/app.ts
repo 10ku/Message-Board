@@ -1,16 +1,19 @@
-const express = require("express")
-const MongoClient = require("mongodb").MongoClient;
-const assert = require("assert");
-const app = express()
-const port = 3000
+import express = require("express");
+import bodyParser = require("body-parser");
+import cors = require("cors");
+import morgan = require("morgan");
+import MongoClient = require("mongodb");
+import assert = require("assert");
 
-// Connection URL
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
+app.use(morgan("combined"));
+
+const port = 3000;
 const url = 'mongodb://localhost:27017';
-
-// Database Name
 const dbName = 'web_example_db';
 
-// Use connect method to connect to the server
 MongoClient.connect(url, function(err, client)
 {
 	assert.strictEqual(null, err);
