@@ -9,7 +9,7 @@
 				<h1>Sign Up</h1>
 			</div>
 			<div class="grid-item body1">
-				<label for="user-email">Username or Email</label><br>
+				<label for="user-email">Username</label><br>
 				<input id="user-email"><br>
 				<label for="password">Password</label><br>
 				<input id="password"><br>
@@ -17,14 +17,14 @@
 			</div>
 			<div class="grid-item body2">
 				<label for="new-user">Username</label><br>
-				<input id="new-user"><br>
-				<label for="new-email">Email</label><br>
-				<input id="new-email"><br>
+				<input v-model="username" id="new-user"><br>
+				<!-- <label for="new-email">Email</label><br>
+				<input id="new-email"><br> -->
 				<label for="new-password">Password</label><br>
-				<input id="new-password"><br>
-				<label for="new-password-repeat">Repeat Password</label><br>
-				<input id="new-password-repeat"><br>
-				<input type="submit" value="Submit">
+				<input v-model="password" id="new-password"><br>
+				<!-- <label for="new-password-repeat">Repeat Password</label><br>
+				<input id="new-password-repeat"><br> -->
+				<input @click="register()" type="submit" value="Submit">
 			</div>
 		</div> 
 	</section>
@@ -33,11 +33,22 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Request from '../services/Request';
 
 @Component
 export default class LoginCreateAccount extends Vue
 {
-	// @Prop() private msg!: string;
+	username = "";
+	password = "";
+
+	async register()
+	{
+		const response = await Request.register({
+			username: this.username,
+			password: this.password
+		});
+		console.log(response);
+	}
 }
 </script>
 
