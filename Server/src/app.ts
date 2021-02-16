@@ -1,9 +1,9 @@
-import express = require("express");
-import bodyParser = require("body-parser");
-import cors = require("cors");
-import morgan = require("morgan");
-import MongoClient = require("mongodb");
-import assert = require("assert");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import morgan from "morgan";
+import MongoClient from "mongodb";
+import assert from "assert";
 
 const app = express();
 app.use(bodyParser.json());
