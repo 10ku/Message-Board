@@ -1,12 +1,11 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
 import MongoClient from "mongodb";
 import assert from "assert";
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 app.use(morgan("combined"));
 
