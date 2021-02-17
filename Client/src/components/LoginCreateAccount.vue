@@ -32,8 +32,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Request from '../services/Request';
+import { Component, Vue } from "vue-property-decorator";
+import Request from "../services/Request";
 
 @Component
 export default class LoginCreateAccount extends Vue

@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import LoginCreateAccount from '@/components/LoginCreateAccount.vue'
-import NavigateLogin from '@/components/NavigateLogin.vue'
+import LoginCreateAccount from "@/components/LoginCreateAccount.vue"
+import NavigateLogin from "@/components/NavigateLogin.vue"
 
 export default {
-	name: 'Login',
+	name: "Login",
 	components: {
 		LoginCreateAccount,
 		NavigateLogin

@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import Navigate from '@/components/Navigate.vue'
+import Navigate from "@/components/Navigate.vue"
 
 export default {
-	name: 'Root',
+	name: "Root",
 	components: {
 		Navigate
 	}

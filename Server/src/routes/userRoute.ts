@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { userModel } from "../../models/userModel";
+import { userModel } from "../models/userModel";
 
-const user = Router();
+const userRoute = Router();
 
-user.get("/", async (req, res) => {
+userRoute.get("/", async (req, res) => {
 	try {
 		const users = await userModel.find()
 		if (!users) throw new Error("No Users!")
@@ -14,7 +14,7 @@ user.get("/", async (req, res) => {
 	}	
 });
 
-user.post("/", async (req, res) => {
+userRoute.post("/", async (req, res) => {
 	const newUser = new userModel(req.body)
 	try {
 		const userDocument = await newUser.save()
@@ -25,4 +25,4 @@ user.post("/", async (req, res) => {
 	}	
 });
 
-export default user;
+export default userRoute;

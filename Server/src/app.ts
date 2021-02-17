@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import mongoose from "mongoose";
-import userRoute from "./routes/api/userRoute";
+import userRoute from "./routes/userRoute";
 
 const app = express();
 const port = 3000;

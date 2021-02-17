@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class Navigate extends Vue
@@ -29,7 +29,7 @@ export default class Navigate extends Vue
 </script>
 
 <style scoped>
-div.flex-container
+.flex-container
 {
 	display: flex;
 	color: white;

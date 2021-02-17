@@ -1,23 +1,23 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import Vue from "vue"
+import VueRouter, { RouteConfig } from "vue-router"
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
 	{
-		path: '/',
-		name: 'Root',
-		component: () => import('../views/Root.vue')
+		path: "/",
+		name: "Root",
+		component: () => import("../views/Root.vue")
 	},
 	{
-		path: '/login',
-		name: 'Login',
-		component: () => import('../views/Login.vue')
+		path: "/login",
+		name: "Login",
+		component: () => import("../views/Login.vue")
 	}
 ]
 
 const router = new VueRouter({
-	mode: 'history',
+	mode: "history",
 	base: process.env.BASE_URL,
 	routes
 })
