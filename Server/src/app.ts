@@ -13,7 +13,7 @@ app.use(cors());
 app.use(morgan("combined"));
 app.use("/login", userRoute);
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
 db.once("open", function() {
