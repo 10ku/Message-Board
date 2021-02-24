@@ -1,6 +1,12 @@
 <template>
 <div id="login_create_account">
 	<section>
+		<div v-show="showError" class="error-box">
+			<h1>ERROR!!!!</h1>
+			<p>{{errorToDisplay}}</p>
+		</div>
+	</section>
+	<section>
 		<div class="grid-container">
 			<div class="grid-item title1">
 				<h1>Log In</h1>
@@ -9,21 +15,21 @@
 				<h1>Sign Up</h1>
 			</div>
 			<div class="grid-item body1">
-				<label for="user-email">Username</label><br>
-				<input id="user-email"><br>
+				<label for="user-email">Username or Email</label><br>
+				<input v-model="usernameEmail" id="user-email"><br>
 				<label for="password">Password</label><br>
-				<input id="password"><br>
+				<input v-model="password" id="password"><br>
 				<input type="submit" value="Submit">
 			</div>
 			<div class="grid-item body2">
+				<label for="new-email">Email</label><br>
+				<input v-model="newEmail" id="new-email"><br>
 				<label for="new-user">Username</label><br>
-				<input v-model="username" id="new-user"><br>
-				<!-- <label for="new-email">Email</label><br>
-				<input id="new-email"><br> -->
+				<input v-model="newUsername" id="new-user"><br>
 				<label for="new-password">Password</label><br>
-				<input v-model="password" id="new-password"><br>
-				<!-- <label for="new-password-repeat">Repeat Password</label><br>
-				<input id="new-password-repeat"><br> -->
+				<input v-model="newPassword" id="new-password"><br>
+				<label for="new-password-repeat">Repeat Password</label><br>
+				<input v-model="newPasswordRepeat" id="new-password-repeat"><br>
 				<input @click="register()" type="submit" value="Submit">
 			</div>
 		</div> 
@@ -38,16 +44,46 @@ import Request from "../services/Request";
 @Component
 export default class LoginCreateAccount extends Vue
 {
-	username = "";
-	password = "";
+	//Login Vars
+	private usernameEmail = "";
+	private password = "";
 
-	async register()
+	//Sign Up Vars
+	private newEmail = "";
+	private newUsername = "";
+	private newPassword = "";
+	private newPasswordRepeat = "";
+
+	//Error Vars
+	private showError = false;
+	private errorToDisplay = "";
+
+	private async register()
 	{
-		const response = await Request.register({
-			username: this.username,
-			password: this.password
-		});
-		console.log(response);
+		if (!this.doesPasswordMatch(this.newPassword, this.newPasswordRepeat))
+		{
+			this.errorToDisplay = "Password not the same!";
+			this.showError = true;
+			return;
+		}
+		try
+		{
+			const response = await Request.register({
+			email: this.newEmail,
+			username: this.newUsername,
+			password: this.newPassword
+			});
+		}
+		catch (error)
+		{
+			this.errorToDisplay = error.response.data.message;
+			this.showError = true;
+		}
+	}
+
+	private doesPasswordMatch(password1: string, password2: string): boolean
+	{
+		return password1 === password2;
 	}
 }
 </script>
@@ -70,20 +106,12 @@ export default class LoginCreateAccount extends Vue
 	font-size: 30px;
 	text-align: center;
 }
-/* button
+.error-box
 {
-	border: none;
-	color: white;
-	background: transparent;
-	cursor: pointer;
+	background-color: red;
+	position: absolute;
+	width: 25%;
+	top: 48px;
+	left: 38%;
 }
-.bar-center
-{
-	flex: 0 1 664px;
-}
-.search-bar
-{
-	width: 80%;
-	font-size: 18px;
-} */
 </style>
