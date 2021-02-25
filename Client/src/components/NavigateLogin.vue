@@ -1,5 +1,5 @@
 <template>
-<div id="navigate">
+<div id="navigate_login">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<div class="flex-container">
 		<div class="bar-left">
