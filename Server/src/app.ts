@@ -11,7 +11,7 @@ const url = "mongodb://localhost:27017/web_example_db";
 app.use(express.json());
 app.use(cors());
 app.use(morgan("combined"));
-app.use("/login", userRoute);
+app.use("/", userRoute);
 
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 const db = mongoose.connection;
