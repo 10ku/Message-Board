@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<div class="flex-container">
 		<div class="bar-left">
-			<router-link to="/" class="flex-item material-icons">home</router-link>
+			<router-link to="/" tag="button" class="flex-item material-icons">home</router-link>
 		</div>
 		<div class="bar-center">
 			<input class="flex-item search-bar" placeholder="Search">
