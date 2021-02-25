@@ -15,11 +15,11 @@
 				<h1>Sign Up</h1>
 			</div>
 			<div class="grid-item body1">
-				<label for="user-email">Username or Email</label><br>
-				<input v-model="usernameEmail" id="user-email"><br>
+				<label for="email">Email</label><br>
+				<input v-model="email" id="email"><br>
 				<label for="password">Password</label><br>
 				<input v-model="password" id="password"><br>
-				<input type="submit" value="Submit">
+				<input @click="login()" type="submit" value="Submit">
 			</div>
 			<div class="grid-item body2">
 				<label for="new-email">Email</label><br>
@@ -45,7 +45,7 @@ import Request from "../services/Request";
 export default class LoginCreateAccount extends Vue
 {
 	//Login Vars
-	private usernameEmail = "";
+	private email = "";
 	private password = "";
 
 	//Sign Up Vars
@@ -72,6 +72,22 @@ export default class LoginCreateAccount extends Vue
 			email: this.newEmail,
 			username: this.newUsername,
 			password: this.newPassword
+			});
+		}
+		catch (error)
+		{
+			this.errorToDisplay = error.response.data.message;
+			this.showError = true;
+		}
+	}
+
+	private async login()
+	{
+		try
+		{
+			const response = await Request.login({
+			email: this.email,
+			password: this.password
 			});
 		}
 		catch (error)
