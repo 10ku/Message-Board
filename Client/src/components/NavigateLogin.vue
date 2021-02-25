@@ -15,7 +15,6 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Navigate extends Vue
 {
-	// @Prop() private msg!: string;
 }
 </script>
 
