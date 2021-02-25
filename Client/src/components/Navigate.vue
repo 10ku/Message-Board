@@ -10,7 +10,7 @@
 			<button class="flex-item material-icons">search</button>
 		</div>
 		<div class="bar-right">
-			<router-link to="/login" tag="button" class="flex-item material-icons">account_circle</router-link>
+			<router-link to="/loginregister" tag="button" class="flex-item material-icons">account_circle</router-link>
 			<button class="flex-item material-icons">arrow_drop_down</button>
 		</div>
 	</div>

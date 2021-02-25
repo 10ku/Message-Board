@@ -1,5 +1,5 @@
 <template>
-	<div class="Login">
+	<div class="LoginRegister">
 		<NavigateLogin/>
 		<LoginCreateAccount/>
 	</div>
@@ -10,7 +10,7 @@ import LoginCreateAccount from "@/components/LoginCreateAccount.vue"
 import NavigateLogin from "@/components/NavigateLogin.vue"
 
 export default {
-	name: "Login",
+	name: "LoginRegister",
 	components: {
 		LoginCreateAccount,
 		NavigateLogin
