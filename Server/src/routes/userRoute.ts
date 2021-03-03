@@ -28,23 +28,19 @@ userRoute.post("/register", async (req, res) => {
 	}
 	catch (error)
 	{
-		// console.log(Object.keys(error.errors))
 		res.status(500).json({message: error.message})
 	}	
 });
 
 userRoute.post("/login", async (req, res) => {
 	const {email, password} = req.body
-	const user = new userModel(req.body)
 	try
 	{
 		const userDocument = await userModel.findOne({
 			email: email,
 			password: password
 		})
-		if (!userDocument) throw new Error("No User")
-		// const isPasswordValid = password === userDocument.password
-		// if (!isPasswordValid) throw new Error("Bad Pass")
+		if (!userDocument) throw new Error("Bad Credentials")
 		res.status(200).json(userDocument)
 	}
 	catch (error)
