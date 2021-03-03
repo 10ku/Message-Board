@@ -73,6 +73,7 @@ export default class LoginCreateAccount extends Vue
 			username: this.newUsername,
 			password: this.newPassword
 			});
+			console.log(response);
 		}
 		catch (error)
 		{
@@ -89,6 +90,7 @@ export default class LoginCreateAccount extends Vue
 			email: this.email,
 			password: this.password
 			});
+			console.log(response);
 		}
 		catch (error)
 		{
