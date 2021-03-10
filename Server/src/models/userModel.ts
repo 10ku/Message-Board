@@ -1,8 +1,17 @@
 import appConfig from "../config/config"
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import bcryptjs from "bcryptjs";
 
 const { Schema } = mongoose;
+
+export interface userSchemaInterface extends Document
+{
+	email: string;
+	username: string;
+	password: string;
+	date_of_creation: Date;
+	validatePassword(password: string) : boolean;
+}
 
 const userSchema = new Schema(
 {
@@ -14,13 +23,13 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function save(next)
 {
-	if (!this.isModified("password")) return next();
+	const thisUserSchema = this as userSchemaInterface;
+	if (!thisUserSchema.isModified("password")) return next();
 
 	try
 	{
 	  const salt = await bcryptjs.genSalt(8);
-	  //@ts-ignore
-	  this.password = await bcryptjs.hash(this.password, salt);
+	  thisUserSchema.password = await bcryptjs.hash(thisUserSchema.password, salt);
 	  return next();
 	}
 	catch (err)
@@ -29,10 +38,10 @@ userSchema.pre("save", async function save(next)
 	}
 });
 
-userSchema.methods.validatePassword = async function validate(password:string)
+userSchema.methods.validatePassword = async function validate(password: string)
 {
-	//@ts-ignore
-	return await bcryptjs.compare(password, this.password);
+	const thisUserSchema = this as userSchemaInterface;
+	return await bcryptjs.compare(password, thisUserSchema.password);
 }
 
-export const userModel = mongoose.model("", userSchema, appConfig.settings.db.collection);
+export const userModel = mongoose.model<userSchemaInterface>("", userSchema, appConfig.settings.db.collection);

@@ -37,7 +37,6 @@ userRoute.post("/login", async (req, res) => {
 			email: email,
 		})
 		if (!userDocument) throw new Error("Bad Credentials")
-		//@ts-ignore
 		const result = await userDocument.validatePassword(password)
 		if (!result) throw new Error("Bad Credentials")
 		res.status(200).json({
