@@ -38,10 +38,11 @@ userRoute.post("/login", async (req, res) => {
 	{
 		const userDocument = await userModel.findOne({
 			email: email,
-			password: password
 		})
 		if (!userDocument) throw new Error("Bad Credentials")
-		res.status(200).json(userDocument)
+		//@ts-ignore
+		const result = await userDocument.validatePassword(password)
+		if (!result) throw new Error("Bad Credentials")
 	}
 	catch (error)
 	{
