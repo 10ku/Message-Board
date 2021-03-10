@@ -1,9 +1,11 @@
+import appConfig from "../config/config"
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+{
 	email: { type: String, trim: true, match: /[A-z0-9]+@[A-z0-9]+.[A-z0-9]+/, maxLength: 80, unique: true, required: true },
 	username: { type: String, trim: true, maxLength: 80, unique: true, required: true },
 	password: { type: String, match: /[^\s]/g, minLength: 8, maxLength: 255, required: true },
@@ -33,4 +35,4 @@ userSchema.methods.validatePassword = async function validate(password:string)
 	return await bcryptjs.compare(password, this.password);
 }
 
-export const userModel = mongoose.model("", userSchema, "web_example_collection");
+export const userModel = mongoose.model("", userSchema, appConfig.settings.db.collection);

@@ -1,3 +1,4 @@
+import appConfig from "../config/config"
 import { Router } from "express";
 import { userModel } from "../models/userModel";
 import jwt from "jsonwebtoken";
@@ -6,8 +7,8 @@ const userRoute = Router();
 
 function jwtSignUser(user: object)
 {
-	return jwt.sign({user}, "secret", {
-		expiresIn: "7d"
+	return jwt.sign({user}, appConfig.settings.jwt.jwtSecret, {
+		expiresIn: appConfig.settings.jwt.jwtExpiration
 	})
 }
 
