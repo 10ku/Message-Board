@@ -69,11 +69,13 @@ export default class LoginCreateAccount extends Vue
 		}
 		try
 		{
-			const response = await Request.register({
+			const response = await Request.register(
+			{
 			email: this.newEmail,
 			username: this.newUsername,
 			password: this.newPassword
 			});
+
 			console.log(response);
 			mutations.setToken(response.data.token);
 			mutations.setUser(response.data.userDocument.username);
@@ -91,10 +93,12 @@ export default class LoginCreateAccount extends Vue
 	{
 		try
 		{
-			const response = await Request.login({
+			const response = await Request.login(
+			{
 			email: this.email,
 			password: this.password
 			});
+			
 			console.log(response);
 			mutations.setToken(response.data.token);
 			mutations.setUser(response.data.userDocument.username);

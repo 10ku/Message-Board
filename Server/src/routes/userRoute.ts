@@ -7,18 +7,24 @@ const userRoute = Router();
 
 function jwtSignUser(user: object)
 {
-	return jwt.sign({user}, appConfig.settings.jwt.jwtSecret, {
+	return jwt.sign({user}, appConfig.settings.jwt.jwtSecret,
+	{
 		expiresIn: appConfig.settings.jwt.jwtExpiration
 	})
 }
 
-userRoute.post("/register", async (req, res) => {
+userRoute.post("/register", async (req, res) =>
+{
 	const newUser = new userModel(req.body)
+
 	try
 	{
 		const userDocument = await newUser.save()
+
 		if (!userDocument) throw new Error("Bad Save!")
-		res.status(200).json({
+
+		res.status(200).json(
+		{
 			userDocument,
 			token: jwtSignUser(userDocument)
 		})
@@ -29,17 +35,25 @@ userRoute.post("/register", async (req, res) => {
 	}	
 });
 
-userRoute.post("/login", async (req, res) => {
+userRoute.post("/login", async (req, res) =>
+{
 	const {email, password} = req.body
+
 	try
 	{
-		const userDocument = await userModel.findOne({
+		const userDocument = await userModel.findOne(
+		{
 			email: email,
 		})
+
 		if (!userDocument) throw new Error("Bad Credentials")
+
 		const result = await userDocument.validatePassword(password)
+
 		if (!result) throw new Error("Bad Credentials")
-		res.status(200).json({
+
+		res.status(200).json(
+		{
 			userDocument,
 			token: jwtSignUser(userDocument)
 		})
