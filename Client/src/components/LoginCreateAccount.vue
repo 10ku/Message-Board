@@ -40,7 +40,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Request from "../services/Request";
-import { store, mutations } from "../store/Store"
+import store from "../store/store"
 
 @Component
 export default class LoginCreateAccount extends Vue
@@ -77,8 +77,8 @@ export default class LoginCreateAccount extends Vue
 			});
 
 			console.log(response);
-			mutations.setToken(response.data.token);
-			mutations.setUser(response.data.userDocument.username);
+			store.dispatch("setToken", response.data.token)
+			store.dispatch("setUser", response.data.userDocument.username)
 			this.errorToDisplay = "";
 			this.showError = false;
 		}
@@ -98,10 +98,10 @@ export default class LoginCreateAccount extends Vue
 			email: this.email,
 			password: this.password
 			});
-			
+
 			console.log(response);
-			mutations.setToken(response.data.token);
-			mutations.setUser(response.data.userDocument.username);
+			store.dispatch("setTokenAction", response.data.token)
+			store.dispatch("setUserAction", response.data.userDocument.username)
 			this.errorToDisplay = "";
 			this.showError = false;
 		}
