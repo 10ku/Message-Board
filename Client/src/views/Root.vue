@@ -1,16 +1,14 @@
 <template>
 	<div class="Root">
-		<Navigate/>
+		<h1>Working on it</h1>
 	</div>
 </template>
 
 <script>
-import Navigate from "@/components/Navigate.vue"
 
 export default {
 	name: "Root",
 	components: {
-		Navigate
 	}
 }
 </script>
