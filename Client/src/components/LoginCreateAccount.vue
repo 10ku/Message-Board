@@ -31,7 +31,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Request from "../services/Request";
-import store from "../store/store"
 
 @Component
 export default class LoginCreateAccount extends Vue
@@ -86,8 +85,8 @@ export default class LoginCreateAccount extends Vue
 			});
 
 			console.log(response);
-			store.dispatch("setTokenAction", response.data.token);
-			store.dispatch("setUserAction", response.data.userDocument.username);
+			this.$store.dispatch("setTokenAction", response.data.token);
+			this.$store.dispatch("setUserAction", response.data.userDocument.username);
 			this.hideError();
 			this.$router.push("/");
 		}
@@ -108,8 +107,8 @@ export default class LoginCreateAccount extends Vue
 			});
 
 			console.log(response);
-			store.dispatch("setTokenAction", response.data.token)
-			store.dispatch("setUserAction", response.data.userDocument.username)
+			this.$store.dispatch("setTokenAction", response.data.token)
+			this.$store.dispatch("setUserAction", response.data.userDocument.username)
 			this.hideError();
 			this.$router.push("/");
 		}
