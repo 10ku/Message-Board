@@ -7,14 +7,26 @@
 			<v-btn to="/" icon>
 				<v-icon>mdi-home</v-icon>
 			</v-btn>
-			<v-spacer></v-spacer>
+			<v-spacer/>
 			<v-text-field label="Search">
 				<v-icon slot="append">mdi-magnify</v-icon>
 			</v-text-field>
-			<v-spacer></v-spacer>
-			<v-btn to="/loginregister" icon>
+			<v-spacer/>
+			<v-btn v-if="!$store.state.UserModule.loggedIn" to="/loginregister" icon>
 				<v-icon>mdi-account</v-icon>
 			</v-btn>
+			<v-menu offset-y bottom>
+				<template v-slot:activator="{ on, attrs }">
+					<v-btn v-bind="attrs" v-on="on" icon>
+						<v-icon>mdi-dots-vertical</v-icon>
+					</v-btn>
+				</template>
+				<v-list>
+					<v-list-item v-if="$store.state.UserModule.loggedIn" @click="logout()">
+						<v-list-item-title>Log Out</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
 		</v-app-bar>
 		<v-main>
 			<v-container fluid>
@@ -24,6 +36,25 @@
 	</v-app>
 </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class App extends Vue
+{
+	private logout()
+	{
+		this.$store.dispatch("setTokenAction", null);
+		this.$store.dispatch("setUserAction", null);
+		
+		if (this.$route.name !== "Root")
+		{
+			this.$router.push("/");
+		}
+	}
+}
+</script>
 
 <style>
 /* *
