@@ -1,18 +1,10 @@
 <template>
 <div id="login_create_account">
-	<v-card v-show="showError" elevation="2" max-width="750" color="red" class="mx-auto">
-		<v-toolbar color="red" flat>
-			<v-toolbar-title>Error</v-toolbar-title>
-			<v-spacer/>
-			<v-btn @click="hideError()" icon>
-				<v-icon>mdi-close</v-icon>
-			</v-btn>
-		</v-toolbar>
-		<v-card-text>{{errorToDisplay}}</v-card-text>
-	</v-card>
+	<div class="Space">
+		<v-alert v-model="showError" dismissible type="error" transition="scale-transition">{{errorToDisplay}}</v-alert>
+	</div>
 	<v-container>
 		<v-row>
-			<!-- <v-spacer/> -->
 			<v-col>
 				<v-form ref="loginForm" v-model="validLogin">
 					<h1>Log In</h1>
@@ -31,7 +23,6 @@
 					<v-btn :disabled="!validSignup" @click="register()">Submit</v-btn>
 				</v-form>
 			</v-col>
-			<!-- <v-spacer/> -->
 		</v-row>
 	</v-container>
 </div>
@@ -98,6 +89,7 @@ export default class LoginCreateAccount extends Vue
 			store.dispatch("setTokenAction", response.data.token);
 			store.dispatch("setUserAction", response.data.userDocument.username);
 			this.hideError();
+			this.$router.push("/");
 		}
 		catch (error)
 		{
@@ -119,6 +111,7 @@ export default class LoginCreateAccount extends Vue
 			store.dispatch("setTokenAction", response.data.token)
 			store.dispatch("setUserAction", response.data.userDocument.username)
 			this.hideError();
+			this.$router.push("/");
 		}
 		catch (error)
 		{
@@ -146,29 +139,8 @@ export default class LoginCreateAccount extends Vue
 </script>
 
 <style scoped>
-.grid-container
+.Space
 {
-	display: grid;
-	grid-template-columns: auto auto;
-	max-width: 75%;
-	margin-top: 4%;
-	margin-left: auto;
-	margin-right: auto;
-}
-.grid-item
-{
-	background-color: rgba(61, 104, 42, 0.8);
-	border: 1px solid rgba(0, 0, 0, 0.8);
-	padding: 20px;
-	font-size: 30px;
-	text-align: center;
-}
-.error-box
-{
-	background-color: red;
-	position: absolute;
-	width: 25%;
-	top: 48px;
-	left: 38%;
+	height: 68px;
 }
 </style>
