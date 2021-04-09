@@ -6,7 +6,8 @@ export default class Config
 		db:
 		{
 			url: process.env.MDB_URL || "mongodb://localhost:27017/web_example_db",
-			collection: process.env.MDB_COLLECTION || "web_example_collection",
+			userCollection: process.env.MDB_USER_COLLECTION || "web_example_user_collection",
+			postCollection: process.env.MDB_POST_COLLECTION || "web_example_post_collection",
 			password: process.env.MDB_PASS || "NEEDS_PASS"
 		},
 		jwt:
