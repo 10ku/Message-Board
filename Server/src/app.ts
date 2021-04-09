@@ -4,6 +4,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import appConfig from "./config/config"
 import userRoute from "./routes/userRoute";
+import postRoute from "./routes/postRoute";
 
 const app = express();
 const port = appConfig.settings.port;
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("combined"));
 app.use("/", userRoute);
+app.use("/posts", postRoute);
 
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 const db = mongoose.connection;
