@@ -22,6 +22,12 @@
 					</v-btn>
 				</template>
 				<v-list>
+					<v-list-item v-if="!$store.state.UserModule.loggedIn" to="/loginregister">
+						<v-list-item-title>Log In</v-list-item-title>
+					</v-list-item>
+					<v-list-item v-if="$store.state.UserModule.loggedIn" to="/createpost">
+						<v-list-item-title>Create Post</v-list-item-title>
+					</v-list-item>
 					<v-list-item v-if="$store.state.UserModule.loggedIn" @click="logout()">
 						<v-list-item-title>Log Out</v-list-item-title>
 					</v-list-item>
