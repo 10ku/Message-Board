@@ -1,6 +1,6 @@
 <template>
 <div id="login_create_account">
-	<div class="Space">
+	<div class="errorSpace">
 		<v-alert v-model="showError" dismissible type="error" transition="scale-transition">{{errorToDisplay}}</v-alert>
 	</div>
 	<v-container>
@@ -79,9 +79,9 @@ export default class LoginCreateAccount extends Vue
 		{
 			const response = await Request.register(
 			{
-			email: this.newEmail,
-			username: this.newUsername,
-			password: this.newPassword
+				email: this.newEmail,
+				username: this.newUsername,
+				password: this.newPassword
 			});
 
 			console.log(response);
@@ -102,8 +102,8 @@ export default class LoginCreateAccount extends Vue
 		{
 			const response = await Request.login(
 			{
-			email: this.email,
-			password: this.password
+				email: this.email,
+				password: this.password
 			});
 
 			console.log(response);
@@ -138,7 +138,7 @@ export default class LoginCreateAccount extends Vue
 </script>
 
 <style scoped>
-.Space
+.errorSpace
 {
 	height: 68px;
 }

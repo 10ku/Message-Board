@@ -9,7 +9,8 @@ import LoginCreateAccount from "@/components/LoginCreateAccount.vue"
 
 export default {
 	name: "LoginRegister",
-	components: {
+	components:
+	{
 		LoginCreateAccount
 	}
 }
