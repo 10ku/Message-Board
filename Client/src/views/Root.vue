@@ -1,14 +1,17 @@
 <template>
 	<div class="Root">
-		<h1>Working on it</h1>
+		<Posts/>
 	</div>
 </template>
 
 <script>
+import Posts from "@/components/Posts.vue"
 
 export default {
 	name: "Root",
-	components: {
+	components:
+	{
+		Posts
 	}
 }
 </script>
