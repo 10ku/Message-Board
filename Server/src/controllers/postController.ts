@@ -6,7 +6,7 @@ export default class PostController
 	{
 		try
 		{
-			const postDocument = await postModel.find({});
+			const postDocument = await postModel.find({}).sort({date_of_post:-1});
 
 			if (!postDocument) throw new Error("No Posts!")
 
