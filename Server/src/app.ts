@@ -16,7 +16,7 @@ app.use(morgan("combined"));
 app.use("/", userRoute);
 app.use("/posts", postRoute);
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
 db.once("open", () =>
