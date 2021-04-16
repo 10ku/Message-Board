@@ -87,6 +87,7 @@ export default class LoginCreateAccount extends Vue
 			console.log(response);
 			this.$store.dispatch("setTokenAction", response.data.token);
 			this.$store.dispatch("setUserAction", response.data.userDocument.username);
+			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
 			this.hideError();
 			this.$router.push("/");
 		}
@@ -109,6 +110,7 @@ export default class LoginCreateAccount extends Vue
 			console.log(response);
 			this.$store.dispatch("setTokenAction", response.data.token)
 			this.$store.dispatch("setUserAction", response.data.userDocument.username)
+			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
 			this.hideError();
 			this.$router.push("/");
 		}
