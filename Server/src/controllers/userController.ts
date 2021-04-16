@@ -62,4 +62,25 @@ export default class UserController
 			res.status(500).json({message: error.message})
 		}	
 	}
+
+	static async updateAvatar(req: any, res: any)
+	{
+		const {username, avatar} = req.body
+
+		try
+		{
+			const userDocument = await userModel.findOneAndUpdate({username: username}, {avatar: avatar}, {new: true})
+
+			if (!userDocument) throw new Error("Bad Update")
+
+			res.status(200).json(
+			{
+				userDocument
+			})
+		}
+		catch (error)
+		{
+			res.status(500).json({message: error.message})
+		}	
+	}
 }

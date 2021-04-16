@@ -5,5 +5,6 @@ const userRoute = Router();
 
 userRoute.post("/register", userController.register);
 userRoute.post("/login", userController.login);
+userRoute.put("/update/avatar", userController.updateAvatar);
 
 export default userRoute;
