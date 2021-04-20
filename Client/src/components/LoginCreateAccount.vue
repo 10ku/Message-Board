@@ -1,8 +1,6 @@
 <template>
 <div id="login_create_account">
-	<div class="errorSpace">
-		<v-alert v-model="showError" dismissible type="error" transition="scale-transition">{{errorToDisplay}}</v-alert>
-	</div>
+	<ErrorAlert :showError="loginRegisterError.showError" :errorToDisplay="loginRegisterError.errorToDisplay"/>
 	<v-container>
 		<v-row>
 			<v-col>
@@ -30,9 +28,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ErrorAlert from "./ErrorAlert.vue"
 import Request from "../services/Request";
 
-@Component
+@Component(
+{
+	components:
+	{
+		ErrorAlert
+	}
+})
 export default class LoginCreateAccount extends Vue
 {
 	//Login Vars
@@ -48,9 +53,8 @@ export default class LoginCreateAccount extends Vue
 	private newPasswordRepeat = "";
 	private showNewPasswordRepeat = false;
 
-	//Error Vars
-	private showError = false;
-	private errorToDisplay = "";
+	//Error Obj
+	private loginRegisterError = new ErrorAlert();
 
 	//Client-Side Validation
 	private validLogin = false;
@@ -88,12 +92,12 @@ export default class LoginCreateAccount extends Vue
 			this.$store.dispatch("setTokenAction", response.data.token);
 			this.$store.dispatch("setUserAction", response.data.userDocument.username);
 			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
-			this.hideError();
+			this.loginRegisterError.hideError();
 			this.$router.push("/");
 		}
 		catch (error)
 		{
-			this.showErrorWithMsg(error.response.data.message)
+			this.loginRegisterError.showErrorWithMsg(error.response.data.message)
 		}
 	}
 
@@ -111,12 +115,12 @@ export default class LoginCreateAccount extends Vue
 			this.$store.dispatch("setTokenAction", response.data.token)
 			this.$store.dispatch("setUserAction", response.data.userDocument.username)
 			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
-			this.hideError();
+			this.loginRegisterError.hideError();
 			this.$router.push("/");
 		}
 		catch (error)
 		{
-			this.showErrorWithMsg(error.response.data.message)
+			this.loginRegisterError.showErrorWithMsg(error.response.data.message)
 		}
 	}
 
@@ -124,24 +128,8 @@ export default class LoginCreateAccount extends Vue
 	{
 		return (password1 === password2) || "Password is not the same";
 	}
-
-	private showErrorWithMsg(msg: string)
-	{
-		this.errorToDisplay = msg;
-		this.showError = true;
-	}
-	
-	private hideError()
-	{
-		this.errorToDisplay = "";
-		this.showError = false;
-	}
 }
 </script>
 
 <style scoped>
-.errorSpace
-{
-	height: 68px;
-}
 </style>
