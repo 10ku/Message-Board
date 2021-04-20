@@ -20,7 +20,7 @@ export default class UserController
 		{
 			const userDocument = await newUser.save()
 
-			if (!userDocument) throw new Error("Bad Save!")
+			if (!userDocument) throw new Error("Save Error")
 
 			res.status(200).json(
 			{
@@ -71,7 +71,7 @@ export default class UserController
 		{
 			const userDocument = await userModel.findOneAndUpdate({username: username}, {avatar: avatar}, {new: true})
 
-			if (!userDocument) throw new Error("Bad Update")
+			if (!userDocument) throw new Error("Bad Avatar")
 
 			res.status(200).json(
 			{
