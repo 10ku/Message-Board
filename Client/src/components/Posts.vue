@@ -1,5 +1,6 @@
 <template>
 <div id="posts">
+	<ErrorAlert :showError="postError.showError" :errorToDisplay="postError.errorToDisplay"/>
 	<v-container>
 		<v-row v-for="(post, index) in posts" :key="post.id">
 			<v-col>
@@ -25,6 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ErrorAlert from "./ErrorAlert.vue"
 import Request from "../services/Request";
 
 class Post
@@ -45,10 +47,17 @@ class Post
 	}
 }
 
-@Component
+@Component(
+{
+	components:
+	{
+		ErrorAlert
+	}
+})
 export default class Posts extends Vue
 {
 	private posts: Post[] = [];
+	private postError = new ErrorAlert();
 
 	created()
 	{
@@ -74,11 +83,18 @@ export default class Posts extends Vue
 			}
 
 			console.log(response);
+			this.postError.hideError();
 		}
 		catch (error)
 		{
-			// this.showErrorWithMsg(error.response.data.message)
-			console.log(error);
+			if (!error.response)
+			{
+				this.postError.showErrorWithMsg("Could not reach server!")
+			}
+			else
+			{
+				this.postError.showErrorWithMsg(error.response.data.message)
+			}
 		}
 	}
 
@@ -94,11 +110,18 @@ export default class Posts extends Vue
 			});
 
 			console.log(response);
+			this.postError.hideError();
 		}
 		catch (error)
 		{
-			// this.showErrorWithMsg(error.response.data.message)
-			console.log(error);
+			if (!error.response)
+			{
+				this.postError.showErrorWithMsg("Could not reach server!")
+			}
+			else
+			{
+				this.postError.showErrorWithMsg(error.response.data.message)
+			}
 		}
 	}
 }

@@ -97,7 +97,14 @@ export default class LoginCreateAccount extends Vue
 		}
 		catch (error)
 		{
-			this.loginRegisterError.showErrorWithMsg(error.response.data.message)
+			if (!error.response)
+			{
+				this.loginRegisterError.showErrorWithMsg("Could not reach server!")
+			}
+			else
+			{
+				this.loginRegisterError.showErrorWithMsg(error.response.data.message)
+			}
 		}
 	}
 
@@ -120,7 +127,14 @@ export default class LoginCreateAccount extends Vue
 		}
 		catch (error)
 		{
-			this.loginRegisterError.showErrorWithMsg(error.response.data.message)
+			if (!error.response)
+			{
+				this.loginRegisterError.showErrorWithMsg("Could not reach server!")
+			}
+			else
+			{
+				this.loginRegisterError.showErrorWithMsg(error.response.data.message)
+			}
 		}
 	}
 

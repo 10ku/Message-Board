@@ -1,5 +1,6 @@
 <template>
 <div id="make_post">
+	<ErrorAlert :showError="makePostError.showError" :errorToDisplay="makePostError.errorToDisplay"/>
 	<v-text-field v-model="title" label="Title"></v-text-field>
 	<v-textarea filled v-model="text" label="Text"></v-textarea>
 	<v-btn @click="makePost()">Submit</v-btn>
@@ -8,13 +9,21 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ErrorAlert from "./ErrorAlert.vue"
 import Request from "../services/Request";
 
-@Component
+@Component(
+{
+	components:
+	{
+		ErrorAlert
+	}
+})
 export default class MakePost extends Vue
 {
 	private title = "";
 	private text = "";
+	private makePostError = new ErrorAlert();
 
 	private async makePost()
 	{
@@ -28,11 +37,19 @@ export default class MakePost extends Vue
 			});
 
 			console.log(response);
+			this.makePostError.hideError();
 			this.$router.push("/")
 		}
 		catch (error)
 		{
-			console.log(error);
+			if (!error.response)
+			{
+				this.makePostError.showErrorWithMsg("Could not reach server!")
+			}
+			else
+			{
+				this.makePostError.showErrorWithMsg(error.response.data.message)
+			}
 		}
 	}
 }

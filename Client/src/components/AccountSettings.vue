@@ -1,5 +1,6 @@
 <template>
 <div id="account_settings">
+	<ErrorAlert :showError="accountError.showError" :errorToDisplay="accountError.errorToDisplay"/>
 	<v-container>
 		<v-row>
 			<v-spacer/>
@@ -18,9 +19,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ErrorAlert from "./ErrorAlert.vue"
 import Request from "../services/Request";
 
-@Component
+@Component(
+{
+	components:
+	{
+		ErrorAlert
+	}
+})
 export default class AccountSettings extends Vue
 {
 	private uploadedImage: File | null = null;
@@ -28,12 +36,13 @@ export default class AccountSettings extends Vue
 	private contentType = "";
 	private base64URL: string | ArrayBuffer | null = "";
 	private base64Img = "";
+	private accountError = new ErrorAlert();
 	
 	private setAvatar()
 	{
 		if (!this.uploadedImage)
 		{
-			console.log("No Image!");
+			this.accountError.showErrorWithMsg("No Image!");
 			return;
 		}
 
@@ -44,7 +53,7 @@ export default class AccountSettings extends Vue
 			//Here for type checking
 			if (!this.uploadedImage)
 			{
-				console.log("Silly type checker");
+				this.accountError.showErrorWithMsg("No Image!");
 				return;
 			}
 
@@ -52,11 +61,11 @@ export default class AccountSettings extends Vue
 			this.username = this.$store.state.UserModule.user;
 			this.contentType = this.uploadedImage.type;
 			this.base64Img = (this.base64URL as string).split(",")[1]
-			// this.uploadAvatar();
+			this.accountError.hideError();
 		}
-		reader.onerror = (err) =>
+		reader.onerror = () =>
 		{
-			console.log(err)
+			this.accountError.showErrorWithMsg("Reader Error");
 		}
 	}
 
@@ -76,10 +85,18 @@ export default class AccountSettings extends Vue
 
 			console.log(response);
 			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
+			this.accountError.hideError();
 		}
 		catch (error)
 		{
-			console.log(error);
+			if (!error.response)
+			{
+				this.accountError.showErrorWithMsg("Could not reach server!")
+			}
+			else
+			{
+				this.accountError.showErrorWithMsg(error.response.data.message)
+			}
 		}
 	}
 }
