@@ -31,8 +31,8 @@ const userSchema = new Schema(
 	password: { type: String, match: /^[A-z0-9]+$/, minLength: 8, maxLength: 255, required: true },
 	avatar:
 	{
-		contentType: { type: String, default: defaultAvatarType},
-		base64Img: { type: String, default: defaultAvatar}
+		contentType: { type: String, match: /^image\/[A-z]{3,4}$/, maxLength: 24, required: true, default: defaultAvatarType},
+		base64Img: { type: String, maxLength: 1572864, required: true, default: defaultAvatar}
 	},
 	date_of_creation: { type: Date, default: Date.now, required: true }
 });
