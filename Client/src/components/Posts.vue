@@ -9,11 +9,11 @@
 					<v-card-subtitle>{{posts[index].poster}} - {{posts[index].date}}</v-card-subtitle>
 					<v-card-text>{{posts[index].text}}</v-card-text>
 					<v-toolbar dense flat>
-						<v-btn icon color="info">
+						<v-btn icon color="info" @click="changeLike(index, UP_VOTE)">
 							<v-icon>mdi-arrow-up</v-icon>
 						</v-btn>
 						<span>{{posts[index].likes}}</span>
-						<v-btn icon color="error">
+						<v-btn icon color="error" @click="changeLike(index, DOWN_VOTE)">
 							<v-icon>mdi-arrow-down</v-icon>
 						</v-btn>
 					</v-toolbar>
@@ -31,19 +31,23 @@ import Request from "../services/Request";
 
 class Post
 {
+	public _id = "";
 	private title = "";
 	private poster = "";
 	private date = "";
 	private text = "";
-	private likes = 0;
+	public likes = 0;
+	private voters: string[] = []
 
-	constructor(title: string, poster: string, date: string, text: string, likes: number)
+	constructor(_id: string, title: string, poster: string, date: string, text: string, likes: number, voters: string[])
 	{
+		this._id = _id;
 		this.title = title;
 		this.poster = poster;
 		this.date = date;
 		this.text = text;
 		this.likes = likes;
+		this.voters = voters;
 	}
 }
 
@@ -56,6 +60,9 @@ class Post
 })
 export default class Posts extends Vue
 {
+	private readonly UP_VOTE = 1;
+	private readonly DOWN_VOTE = -1;
+
 	private posts: Post[] = [];
 	private postError = new ErrorAlert();
 
@@ -74,11 +81,13 @@ export default class Posts extends Vue
 
 			while (response.data.postDocument[i])
 			{
-				this.posts.push(new Post(response.data.postDocument[i].title, 
+				this.posts.push(new Post(response.data.postDocument[i]._id,
+										response.data.postDocument[i].title,
 										response.data.postDocument[i].poster,
 										response.data.postDocument[i].date_of_post,
 										response.data.postDocument[i].text,
-										response.data.postDocument[i].likes));
+										response.data.postDocument[i].likes,
+										response.data.postDocument[i].voters));
 				i++;
 			}
 
@@ -98,31 +107,37 @@ export default class Posts extends Vue
 		}
 	}
 
-	private async makePost()
+	private async changeLike(index: number, voteChoice: number)
 	{
 		try
 		{
-			const response = await Request.makePost(
+			const response = await Request.changeLike(
 			{
-				title: "New Title",
-				poster: "User",
-				text: "Some text!!!",
+				_id: this.posts[index]._id,
+				voteChoice: voteChoice,
+				voter: this.$store.state.UserModule.user,
 			});
 
 			console.log(response);
+			this.vote(index, voteChoice);
 			this.postError.hideError();
 		}
 		catch (error)
 		{
 			if (!error.response)
 			{
-				this.postError.showErrorWithMsg("Could not reach server!")
+				this.postError.showErrorWithMsg("Could not reach server!");
 			}
 			else
 			{
-				this.postError.showErrorWithMsg(error.response.data.message)
+				this.postError.showErrorWithMsg(error.response.data.message);
 			}
 		}
+	}
+
+	private vote(index: number, voteChoice: number)
+	{
+		this.posts[index].likes += voteChoice;
 	}
 }
 </script>
