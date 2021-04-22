@@ -1,7 +1,7 @@
 <template>
 <div id="error_alert">
 	<div class="errorSpace">
-		<v-alert v-model="showError" dismissible type="error" transition="scale-transition">{{errorToDisplay}}</v-alert>
+		<v-alert v-model="showError" type="error" transition="scale-transition">{{errorToDisplay}}</v-alert>
 	</div>
 </div>
 </template>
