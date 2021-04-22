@@ -8,8 +8,10 @@
 				<v-avatar size="300">
 					<v-img :lazy-src="$store.state.UserModule.avatarBase64" :src="base64URL"></v-img>
 				</v-avatar>
-				<v-file-input v-model="uploadedImage" accept="image/png, image/jpeg, image/bmp, image/gif" label="Upload Avatar" @change="setAvatar()"></v-file-input>
-				<v-btn @click="uploadAvatar()">Upload Avatar</v-btn>
+				<v-form ref="avatarForm" v-model="validAvatar">
+					<v-file-input v-model="uploadedImage" :rules="[rules.required, rules.maxSize1MiB, isImage(this.uploadedImage)]" accept="image/png, image/jpeg, image/bmp, image/gif" label="Upload Avatar" @change="setAvatar()" @click:clear="clearAvatar()"></v-file-input>
+					<v-btn :disabled="!validAvatar" @click="uploadAvatar()">Upload Avatar</v-btn>
+				</v-form>
 			</v-col>
 			<v-spacer/>
 		</v-row>
@@ -36,13 +38,21 @@ export default class AccountSettings extends Vue
 	private contentType = "";
 	private base64URL: string | ArrayBuffer | null = "";
 	private base64Img = "";
+	private validFormats = ["image/png", "image/jpeg", "image/bmp", "image/gif"]
 	private accountError = new ErrorAlert();
+
+	//Client-Side Validation
+	private validAvatar = false;
+	private rules =
+	{
+		maxSize1MiB: (input: File) => !input || input.size < 1048576 || "File size should be 1 MiB or less",
+		required: (input: File) => !!input || "Required"
+	};
 	
 	private setAvatar()
 	{
 		if (!this.uploadedImage)
 		{
-			this.accountError.showErrorWithMsg("No Image!");
 			return;
 		}
 
@@ -53,7 +63,6 @@ export default class AccountSettings extends Vue
 			//Here for type checking
 			if (!this.uploadedImage)
 			{
-				this.accountError.showErrorWithMsg("No Image!");
 				return;
 			}
 
@@ -67,6 +76,11 @@ export default class AccountSettings extends Vue
 		{
 			this.accountError.showErrorWithMsg("Reader Error");
 		}
+	}
+
+	private clearAvatar()
+	{
+		this.base64URL = "";
 	}
 
 	private async uploadAvatar()
@@ -98,6 +112,27 @@ export default class AccountSettings extends Vue
 				this.accountError.showErrorWithMsg(error.response.data.message)
 			}
 		}
+	}
+
+	private isImage(file: File): boolean | string
+	{
+		if (!file)
+		{
+			return false;
+		}
+		
+		let isImage = false;
+
+		for (let i = 0; i < this.validFormats.length; i++)
+		{
+			if (file.type === this.validFormats[i])
+			{
+				isImage = true;
+				break;
+			}
+		}
+		
+		return isImage || "File Is Not a Image!";
 	}
 }
 </script>
