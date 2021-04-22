@@ -31,4 +31,9 @@ export default class Request
 	{
 		return myAxios.put("update/avatar", avatar);
 	}
+
+	static changeLike(post: object)
+	{
+		return myAxios.put("posts", post);
+	}
 }
