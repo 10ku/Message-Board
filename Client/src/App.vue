@@ -8,10 +8,6 @@
 				<v-icon>mdi-home</v-icon>
 			</v-btn>
 			<v-spacer/>
-			<v-text-field label="Search">
-				<v-icon slot="append">mdi-magnify</v-icon>
-			</v-text-field>
-			<v-spacer/>
 			<v-btn v-if="!$store.state.UserModule.loggedIn" to="/loginregister" icon>
 				<v-icon>mdi-account</v-icon>
 			</v-btn>
