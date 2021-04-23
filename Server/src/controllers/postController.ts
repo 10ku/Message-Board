@@ -59,14 +59,12 @@ export default class PostController
 
 		try
 		{
-			const postCheckDocument = await postModel.findById(_id) as postInterface
-
-			if (!postCheckDocument) throw new Error("No Posts!")
-			if (postCheckDocument.voters.find(element => element === voter)) throw new Error("You Already Voted")
-
-			const postDocument = await postModel.findByIdAndUpdate({_id: _id}, {$inc: {likes: voteChoice}, $addToSet: {voters: voter}}, {new: true})
+			let postDocument = await postModel.findById(_id) as postInterface
 
 			if (!postDocument) throw new Error("No Posts!")
+			if (postDocument.voters.find(element => element === voter)) throw new Error("You Already Voted")
+
+			postDocument = await postDocument.updateOne({$inc: {likes: voteChoice}, $addToSet: {voters: voter}}, {new: true})
 
 			res.status(200).json(
 			{
