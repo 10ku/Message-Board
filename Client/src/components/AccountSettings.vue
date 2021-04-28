@@ -48,7 +48,7 @@ export default class AccountSettings extends Vue
 		maxSize1MiB: (input: File) => !input || input.size < 1048576 || "File size should be 1 MiB or less",
 		required: (input: File) => !!input || "Required"
 	};
-	
+
 	private setAvatar()
 	{
 		if (!this.uploadedImage)
@@ -120,7 +120,7 @@ export default class AccountSettings extends Vue
 		{
 			return false;
 		}
-		
+
 		let isImage = false;
 
 		for (let i = 0; i < this.validFormats.length; i++)
@@ -131,7 +131,7 @@ export default class AccountSettings extends Vue
 				break;
 			}
 		}
-		
+
 		return isImage || "File Is Not a Image!";
 	}
 }

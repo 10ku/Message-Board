@@ -31,7 +31,7 @@ export default class UserController
 		catch (error)
 		{
 			res.status(500).json({message: error.message})
-		}	
+		}
 	}
 
 	static async login(req: any, res: any)
@@ -60,7 +60,7 @@ export default class UserController
 		catch (error)
 		{
 			res.status(500).json({message: error.message})
-		}	
+		}
 	}
 
 	static async updateAvatar(req: any, res: any)
@@ -81,6 +81,6 @@ export default class UserController
 		catch (error)
 		{
 			res.status(500).json({message: error.message})
-		}	
+		}
 	}
 }

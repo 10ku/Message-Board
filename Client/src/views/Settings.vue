@@ -7,7 +7,8 @@
 <script>
 import AccountSettings from "@/components/AccountSettings.vue"
 
-export default {
+export default
+{
 	name: "Settings",
 	components:
 	{

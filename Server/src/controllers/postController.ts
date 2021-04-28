@@ -50,7 +50,7 @@ export default class PostController
 		catch (error)
 		{
 			res.status(500).json({message: error.message})
-		}	
+		}
 	}
 
 	static async changeLike(req: any, res: any)
@@ -74,6 +74,6 @@ export default class PostController
 		catch (error)
 		{
 			res.status(500).json({message: error.message})
-		}	
+		}
 	}
 }

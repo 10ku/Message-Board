@@ -58,7 +58,7 @@ export default class App extends Vue
 		this.$store.dispatch("setTokenAction", null);
 		this.$store.dispatch("setUserAction", null);
 		this.$store.dispatch("setAvatarAction", null);
-		
+
 		if (this.$route.name !== "Root")
 		{
 			this.$router.push("/");

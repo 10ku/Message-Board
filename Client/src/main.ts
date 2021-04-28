@@ -9,7 +9,8 @@ Vue.config.productionTip = false
 
 sync(store, router)
 
-new Vue({
+new Vue(
+{
 	router,
 	store,
 	vuetify,

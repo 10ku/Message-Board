@@ -20,7 +20,7 @@ export default class ErrorAlert extends Vue
 		this.errorToDisplay = msg;
 		this.showError = true;
 	}
-	
+
 	public hideError()
 	{
 		this.errorToDisplay = "";
