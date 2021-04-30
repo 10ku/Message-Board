@@ -27,9 +27,9 @@ export default class Request
 		return myAxios.post("posts", post);
 	}
 
-	static changeAvatar(avatar: object)
+	static changeAvatar(avatar: object, header: object)
 	{
-		return myAxios.put("update/avatar", avatar);
+		return myAxios.put("update/avatar", avatar, header);
 	}
 
 	static changeLike(post: object)

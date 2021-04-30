@@ -35,6 +35,7 @@ export default class AccountSettings extends Vue
 {
 	private uploadedImage: File | null = null;
 	private username = "";
+	private token = "";
 	private contentType = "";
 	private base64URL: string | ArrayBuffer | null = "";
 	private base64Img = "";
@@ -68,6 +69,7 @@ export default class AccountSettings extends Vue
 
 			this.base64URL = reader.result;
 			this.username = this.$store.state.UserModule.user;
+			this.token = this.$store.state.UserModule.token;
 			this.contentType = this.uploadedImage.type;
 			this.base64Img = (this.base64URL as string).split(",")[1]
 			this.accountError.hideError();
@@ -94,6 +96,12 @@ export default class AccountSettings extends Vue
 				{
 					contentType: this.contentType,
 					base64Img: this.base64Img
+				}
+			},
+			{
+				headers:
+				{
+					Authorization: "Bearer " + this.token
 				}
 			});
 
