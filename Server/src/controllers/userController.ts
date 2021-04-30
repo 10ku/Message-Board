@@ -25,7 +25,7 @@ export default class UserController
 			res.status(200).json(
 			{
 				userDocument,
-				token: UserController.jwtSignUser(userDocument)
+				token: UserController.jwtSignUser(userDocument._id)
 			})
 		}
 		catch (error)
@@ -54,7 +54,7 @@ export default class UserController
 			res.status(200).json(
 			{
 				userDocument,
-				token: UserController.jwtSignUser(userDocument)
+				token: UserController.jwtSignUser(userDocument._id)
 			})
 		}
 		catch (error)
