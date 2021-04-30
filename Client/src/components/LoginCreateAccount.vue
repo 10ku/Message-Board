@@ -88,7 +88,7 @@ export default class LoginCreateAccount extends Vue
 				password: this.newPassword
 			});
 
-			console.log(response);
+			// console.log(response);
 			this.$store.dispatch("setTokenAction", response.data.token);
 			this.$store.dispatch("setUserAction", response.data.userDocument.username);
 			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
@@ -118,7 +118,7 @@ export default class LoginCreateAccount extends Vue
 				password: this.password
 			});
 
-			console.log(response);
+			// console.log(response);
 			this.$store.dispatch("setTokenAction", response.data.token)
 			this.$store.dispatch("setUserAction", response.data.userDocument.username)
 			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);

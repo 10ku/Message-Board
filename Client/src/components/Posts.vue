@@ -91,7 +91,7 @@ export default class Posts extends Vue
 				i++;
 			}
 
-			console.log(response);
+			// console.log(response);
 			this.postError.hideError();
 		}
 		catch (error)
@@ -125,7 +125,7 @@ export default class Posts extends Vue
 			}
 			);
 
-			console.log(response);
+			// console.log(response);
 			this.vote(index, voteChoice);
 			this.postError.hideError();
 		}

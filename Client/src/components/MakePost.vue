@@ -42,7 +42,7 @@ export default class MakePost extends Vue
 				}
 			});
 
-			console.log(response);
+			// console.log(response);
 			this.makePostError.hideError();
 			this.$router.push("/")
 		}

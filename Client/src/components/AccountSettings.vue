@@ -105,7 +105,7 @@ export default class AccountSettings extends Vue
 				}
 			});
 
-			console.log(response);
+			// console.log(response);
 			this.$store.dispatch("setAvatarAction", response.data.userDocument.avatar);
 			this.accountError.hideError();
 		}
