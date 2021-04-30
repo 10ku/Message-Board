@@ -34,6 +34,12 @@ export default class MakePost extends Vue
 				title: this.title,
 				poster: this.$store.state.UserModule.user,
 				text: this.text
+			},
+			{
+				headers:
+				{
+					Authorization: "Bearer " + this.$store.state.UserModule.token
+				}
 			});
 
 			console.log(response);

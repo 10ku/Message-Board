@@ -116,7 +116,14 @@ export default class Posts extends Vue
 				_id: this.posts[index]._id,
 				voteChoice: voteChoice,
 				voter: this.$store.state.UserModule.user,
-			});
+			},
+			{
+				headers:
+				{
+					Authorization: "Bearer " + this.$store.state.UserModule.token
+				}
+			}
+			);
 
 			console.log(response);
 			this.vote(index, voteChoice);
